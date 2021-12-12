@@ -1,0 +1,930 @@
+\documentclass[12pt, oneside]{book}
+
+\usepackage{fourier}  % font
+
+\usepackage{amsmath}  % \begin{align}\end{align}
+\usepackage{amssymb}  % \checkmark
+
+\usepackage[mathcal]{euscript}
+
+\usepackage{geometry}  % scale
+\geometry{scale=0.70}
+
+\begin{document}
+\tableofcontents
+	
+\chapter{Time-dependent perturbation theory}
+\begin{gather*}
+1\rightsquigarrow2\rightsquigarrow1\\
+1\rightsquigarrow2\rightarrow1\rightarrow2\rightarrow1\rightarrow2\rightsquigarrow1\\
+0\rightarrow1\rightsquigarrow2\rightarrow0\rightarrow2\rightarrow0\rightarrow2\rightsquigarrow1\rightarrow0
+\end{gather*}
+
+\section*{The interaction picture}
+Suppose that the Hamiltonian $H=H_0+H_1$, where $H_0$ is time-independent and $H_1$ is time-dependent. Suppose that we prepare or measure the system such that it's in an eigenstate of $H_0$, namely $H_0\psi_i=E_i\psi_i$. After some time $t$, due to the influence of $H_1$, the initial state $\psi_i$ will generally evolve to a superposition of eigenstates of $H_0$, and the transition probability to the state $\psi_j$ is
+\[
+p_{i\to j}=|\langle\psi_j|e^{-iHt}|\psi_i\rangle|^2
+\]
+and we have $\sum_jp_{i\to j}=1$ due to the completeness of the eigenstates $|\psi_j\rangle$.
+
+Notice that Hamiltonian at different times generally do not commute, and in that case the operator $e^{-iHt}$ should really mean the time-ordered version of it. What we shall derive in the following should be true in the general case.
+
+We would like to calculate the effect of $H_1$ on the transition probabilities $\{p_{i\to j}\}$ perturbatively -- in terms of a series in $H_1$. If we have $H_1=0$, then $p_{i\to j}=\delta_{ij}$. A method called the "interaction picture" simplifies the calculation somewhat. In effect, it does the following:
+\[
+p_{i\to j}=|\langle\psi_j|e^{-iHt}|\psi_i\rangle|^2=|\langle\psi_j|e^{iH_0t}e^{-iHt}|\psi_i\rangle|^2
+\]
+and the unitary operator $e^{iH_0t}e^{-iHt}$ satisfies the following differential equation
+\begin{align*}
+d_te^{iH_0t}e^{-iHt}
+&=-ie^{iH_0t}H_1e^{-iHt}\\
+&=-ie^{iH_0t}H_1e^{-iH_0t}e^{iH_0t}e^{-iHt}\\
+&=:-iH_{1I}e^{iH_0t}e^{-iHt}
+\end{align*}
+with solution given by the Dyson series
+\[
+e^{iH_0t}e^{-iHt}=1-i\int_0^tdt'H_{1I}-\int_0^tdt'\int_0^{t'}dt''H_{1I}H_{1I}+\cdots
+\]
+and thus to first order in $H_1$, the transition amplitude (up to a phase) is
+\begin{align*}
+\langle\psi_j|e^{iH_0t}e^{-iHt}|\psi_i\rangle
+&=\delta_{ij}-i\int_0^tdt'\langle\psi_j|H_{1I}|\psi_i\rangle\\
+&=\delta_{ij}-i\int_0^tdt'e^{-i\omega_{ij}t'}\langle\psi_j|H_1|\psi_i\rangle
+\end{align*}
+
+The unitary operator $e^{iH_0t}e^{-iHt}$ can also be written as
+\[
+e^{iH_0t}e^{-iHt}=\mathcal{T}\exp\left(-i\int_0^tdt'H_{1I}\right)
+\]
+which may be generalized to
+\[
+U_{21}:=e^{iH_0t_2}e^{-iHt_{21}}e^{-iH_0t_1}=\mathcal{T}\exp\left(-i\int_{t_1}^{t_2}dt'H_{1I}\right)
+\]
+
+\section*{Case I: Constant perturbation}
+Suppose that $H_1=V$ is a constant operator, then the transition amplitude above evaluates to
+\[
+\langle\psi_j|e^{iH_0t}e^{-iHt}|\psi_i\rangle=\delta_{ij}+V_{ji}\frac{e^{-i\omega_{ij}t}-1}{\omega_{ij}}
+\]
+and if $j\ne i$, the transition probability is
+\[
+p_{i\to j}=|V_{ji}|^2\left(\frac{\sin{\omega_{ij}t\mathbin/2}}{\omega_{ij}\mathbin/2}\right)^2
+\]
+which takes the form of the familiar "sinc" function. Interestingly, when $t$ is very large, the transition probability $p_{i\to j}$ has the limiting behavior
+\[
+\lim_{t\to\infty}p_{i\to j}=|V_{ji}|^2\,2\pi t\,\delta^1(\omega_{ij})
+\]
+This is a first sign of Fermi's golden rule.
+
+However, the result above should only hold for sufficiently small $t$, since the expression for the transition probability does not always satisfy $p_{i\to j}\le1$. For example,
+\[
+\omega_{ij}=0\Rightarrow
+p_{i\to j}=|V_{ji}|^2t^2
+\]
+and thus we require that $t\ll|V_{ji}|^{-1}$.
+
+\section*{Case II: Monochromatic perturbation}
+Suppose that $H_1=Ve^{-i\omega t}+V^{\dagger}e^{i\omega t}$, where $V$ is a constant operator, then the transition amplitude is equal to
+\[
+\langle\psi_j|e^{iH_0t}e^{-iHt}|\psi_i\rangle=\delta_{ij}+V_{ji}\frac{e^{-i\omega_{ij}t}e^{-i\omega t}-1}{\omega_{ij}+\omega}+V_{ij*}\frac{e^{-i\omega_{ij}t}e^{i\omega t}-1}{\omega_{ij}-\omega}
+\]
+which contains two terms if $j\ne i$, thus $p_{i\to j}$ will contain four terms if $j\ne i$.
+
+In order to make some simplification, we may attempt to take $t\to\infty$. However, as we have remarked earlier, $t$ cannot be taken too large, otherwise perturbation theory will break down.
+
+We may focus on the case when $\omega$ is close to $\omega_{ij}$ or $-\omega_{ij}$. If for example $\omega$ is close to $\omega_{ij}$, then the second term dominates, and the transition probability $p_{i\to j}$ when $j\ne i$ is approximately equal to
+\[
+p_{i\to j}\approx|V_{ij}|^2\left(\frac{\sin{\omega_{ij-}t\mathbin/2}}{\omega_{ij-}\mathbin/2}\right)^2
+\]
+where $\omega_{ij-}:=\omega_{ij}-\omega$.
+
+Although we may not take $t\to\infty$, when the final state lies in a spectrum continuum, it can be justified (see Tong Chen's notes) that we may take $t$ large, such that
+\[
+\langle\psi_j|e^{iH_0t}e^{-iHt}|\psi_i\rangle\approx\delta_{ij}-iV_{ji}2\pi\delta^1(\omega_{ij}+\omega)-iV_{ij*}2\pi\delta^1(\omega_{ij}-\omega)
+\]
+which means that if $j\ne i$,
+\[
+p_{i\to j}\approx|V_{ji}|^2\,2\pi t\,\delta^1(\omega_{ij}+\omega)+|V_{ij}|^2\,2\pi t\,\delta^1(\omega_{ij}-\omega)
+\]
+since $\omega\ne0$, the cross terms vanishes. Here we have used one of the delta functions to evaluate the other delta function integral, and obtained $t$.
+
+\section*{Einstein's coefficients}
+\begin{align*}
+d_tn_1&=-B_{21}\rho_{\omega}n_1+A_{12}n_2+B_{12}\rho_{\omega}n_2\\
+d_tn_2&=-d_tn_1
+\end{align*}
+and Einstein: when $d_tn_1=d_tn_2=0$,
+\[
+\frac{n_2}{n_1}=\frac{B_{21}\rho_{\omega}}{A_{12}+B_{12}\rho_{\omega}}=e^{-\beta\omega}
+\]
+
+\section*{The electromagnetic field is quantized}
+Let us suppose that
+\[
+H_1=Va+V^{\dagger}a^{\dagger}
+\]
+which gives us the transition probability
+\begin{align*}
+p_{1,n\to2,n-1}&=n_{\omega}\,|V_{21}|^2\,2\pi t\,\delta^1(\omega_{21}-\omega)\\
+p_{2,n\to1,n+1}&=(n_{\omega}+1)\,|V_{21*}|^2\,2\pi t\,\delta^1(\omega_{21}-\omega)
+\end{align*}
+and thus
+\begin{align*}
+d_tn_1&\propto-n_{\omega}\,|V_{21}|^2n_1+(n_{\omega}+1)\,|V_{21}|^2n_2\\
+d_tn_2&=-d_tn_1
+\end{align*}
+
+For phonons, the energy density is
+\[
+\frac{E}{V}=2\int\frac{d^3k}{(2\pi)^3}\frac{\omega}{e^{\beta\omega}-1}=\int\frac{k^2dk}{\pi^2}\frac{\omega}{e^{\beta\omega}-1}=\int\frac{\omega^2d\omega}{\pi^2}\frac{\omega}{e^{\beta\omega}-1}=\int\frac{\omega^3n_{\omega}d\omega}{\pi^2}
+\]
+which gives us the spectral energy density
+\[
+\rho_{\omega}=\frac{\omega^3n_{\omega}}{\pi^2}
+\]
+and we read
+\begin{align*}
+B_{21}&=B_{12}\\
+A_{12}&=B_{12}\,\frac{\omega^3}{\pi^2}
+\end{align*}
+
+\chapter{The family of Green's functions}
+\section*{Linear response theory}
+We have
+\begin{align*}
+\mathcal{O}
+&=e^{iHt}\mathcal{O}_Se^{-iHt}\\
+&=e^{iHt}e^{-iH_0t}e^{iH_0t}\mathcal{O}_Se^{-iH_0t}e^{iH_0t}e^{-iHt}\\
+&=e^{iHt}e^{-iH_0t}\mathcal{O}_Ie^{iH_0t}e^{-iHt}
+\end{align*}
+and we may expand $e^{iH_0t}e^{-iHt}$ to first order in $H_1$, and obtain
+\[
+\mathcal{O}=\mathcal{O}_I-i\int_0^tdt'\mathcal{O}_IH_{1I}+i\int_0^tdt'H_{1I}\mathcal{O}_I
+\]
+which means that the linear response is characterized by the commutator
+\[
+\mathcal{O}_IH_{1I}-H_{1I}\mathcal{O}_I
+\]
+at different times: $\mathcal{O}_I$ is at time $t$ while $H_{1I}$ is at time $t'$, and we have $\int_0^tdt'$.
+\begin{align*}
+	e^{iHt_2}\mathcal{O}_{2S}e^{-iHt_2}
+	&=e^{iH_0t_2}\mathcal{O}_{2S}e^{-iH_0t_2}-i\int_0^{t_2}dt_1e^{iH_0t_2}\mathcal{O}_{2S}e^{-iH_0t_{21}}H_{1S}e^{-iH_0t_1}\\
+	&\qquad+i\int_0^{t_2}dt_1e^{iH_0t_1}H_{1S}e^{iH_0t_{21}}\mathcal{O}_{2S}e^{-iH_0t_2}
+\end{align*}
+which is easily proved by breaking the unitary evolution operator $e^{-iHt}$ into pieces and expanding. This result is very intuitive.
+
+\section*{An example: The simple harmonic oscillator}
+We have the response function at zero temperature
+\[
+D_{\beta\to\infty}=\frac{i}{2\omega}\,e^{-i\omega t_{21}}\Theta_{21}-\frac{i}{2\omega}\,e^{-i\omega t_{12}}\Theta_{21}
+\]
+and thus the linear response is
+\[
+\int dt_1\left(\frac{i}{2\omega}\,e^{-i\omega t_{21}}\Theta_{21}-\frac{i}{2\omega}\,e^{-i\omega t_{12}}\Theta_{21}\right)e^{0^+t_1}=\frac{i}{2\omega}\left(\frac1{i\omega}-\frac1{-i\omega}\right)=\frac1{\omega^2}
+\]
+which is correct, since the new equilibrium position is at $\frac{\lambda}{\omega^2}$ for $H_1=-\lambda\phi$.
+
+\section*{The Lehmann representation}
+1. The real-time Green's function.
+\begin{align*}
+iG_{\beta}
+&=\Theta_{21}p_i\langle\psi_i|\phi_2\phi_1|\psi_i\rangle+\eta\Theta_{12}p_i\langle\psi_i|\phi_1\phi_2|\psi_i\rangle\\
+&=\Theta_{21}p_i\langle\psi_i|\phi_2|\psi_j\rangle\langle\psi_j|\phi_1|\psi_i\rangle+\eta\Theta_{12}p_i\langle\psi_i|\phi_1|\psi_j\rangle\langle\psi_j|\phi_2|\psi_i\rangle\\
+&=\Theta_{21}p_ie^{iE_{ij}t_{21}}(\phi_{2S})_{ij}(\phi_{1S})_{ji}+\eta\Theta_{12}p_ie^{iE_{ij}t_{12}}(\phi_{1S})_{ij}(\phi_{2S})_{ji}
+\end{align*}
+and we have
+\[
+\widetilde{G}_{\beta}=p_i\frac{(\phi_{2S})_{ij}(\phi_{1S})_{ji}}{\omega+E_{ij}+i0^+}-\eta p_i\frac{(\phi_{1S})_{ij}(\phi_{2S})_{ji}}{\omega-E_{ij}-i0^+}
+\]
+
+2.a. The retarded Green's function.
+\begin{align*}
+iD_{\beta+}
+&=\Theta_{21}p_i\langle\psi_i|\phi_2\phi_1|\psi_i\rangle-\eta\Theta_{21}p_i\langle\psi_i|\phi_1\phi_2|\psi_i\rangle\\
+&=\Theta_{21}p_i\langle\psi_i|\phi_2|\psi_j\rangle\langle\psi_j|\phi_1|\psi_i\rangle-\eta\Theta_{21}p_i\langle\psi_i|\phi_1|\psi_j\rangle\langle\psi_j|\phi_2|\psi_i\rangle\\
+&=\Theta_{21}p_ie^{iE_{ij}t_{21}}(\phi_{2S})_{ij}(\phi_{1S})_{ji}-\eta\Theta_{21}p_ie^{iE_{ij}t_{12}}(\phi_{1S})_{ij}(\phi_{2S})_{ji}
+\end{align*}
+and we have
+\[
+\widetilde{D}_{\beta+}=p_i\frac{(\phi_{2S})_{ij}(\phi_{1S})_{ji}}{\omega+E_{ij}+i0^+}-\eta p_i\frac{(\phi_{1S})_{ij}(\phi_{2S})_{ji}}{\omega-E_{ij}+i0^+}
+\]
+
+2.b. The advanced Green's function.
+\begin{align*}
+-iD_{\beta-}
+&=\Theta_{12}p_i\langle\psi_i|\phi_2\phi_1|\psi_i\rangle-\eta\Theta_{12}p_i\langle\psi_i|\phi_1\phi_2|\psi_i\rangle\\
+&=\Theta_{12}p_i\langle\psi_i|\phi_2|\psi_j\rangle\langle\psi_j|\phi_1|\psi_i\rangle-\eta\Theta_{12}p_i\langle\psi_i|\phi_1|\psi_j\rangle\langle\psi_j|\phi_2|\psi_i\rangle\\
+&=\Theta_{12}p_ie^{iE_{ij}t_{21}}(\phi_{2S})_{ij}(\phi_{1S})_{ji}-\eta\Theta_{12}p_ie^{iE_{ij}t_{12}}(\phi_{1S})_{ij}(\phi_{2S})_{ji}
+\end{align*}
+and we have
+\[
+\widetilde{D}_{\beta-}=p_i\frac{(\phi_{2S})_{ij}(\phi_{1S})_{ji}}{\omega+E_{ij}-i0^+}-\eta p_i\frac{(\phi_{1S})_{ij}(\phi_{2S})_{ji}}{\omega-E_{ij}-i0^+}
+\]
+
+3. The imaginary-time Green's function.
+\begin{align*}
+-\mathcal{G}_{\beta}
+&=\Theta_{21}p_i\langle\psi_i|\phi_2\phi_1|\psi_i\rangle+\eta\Theta_{12}p_i\langle\psi_i|\phi_1\phi_2|\psi_i\rangle\\
+&=\Theta_{21}p_i\langle\psi_i|\phi_2|\psi_j\rangle\langle\psi_j|\phi_1|\psi_i\rangle+\eta\Theta_{12}p_i\langle\psi_i|\phi_1|\psi_j\rangle\langle\psi_j|\phi_2|\psi_i\rangle\\
+&=\Theta_{21}p_ie^{E_{ij}\tau_{21}}(\phi_{2S})_{ij}(\phi_{1S})_{ji}+\eta\Theta_{12}p_ie^{E_{ij}\tau_{12}}(\phi_{1S})_{ij}(\phi_{2S})_{ji}
+\end{align*}
+and we have, setting $t_1=0$ such that the $\Theta_{12}$ term does not contribute,
+\[
+\widetilde{\mathcal{G}}_{\beta}=p_i\frac{(\phi_{2S})_{ij}(\phi_{1S})_{ji}}{i\omega_l+E_{ij}}-\eta p_i\frac{(\phi_{1S})_{ij}(\phi_{2S})_{ji}}{i\omega_l-E_{ij}}
+\]
+
+\section*{The "master" Green's function}
+is defined as
+\[
+\widetilde{\mathcal{M}}_{\beta}=p_i\frac{(\phi_{2S})_{ij}(\phi_{1S})_{ji}}{z+E_{ij}}-\eta p_i\frac{(\phi_{1S})_{ij}(\phi_{2S})_{ji}}{z-E_{ij}}
+\]
+or equivalently,
+\[
+\widetilde{\mathcal{M}}_{\beta}=\frac{(p_i-\eta p_j)(\phi_{2S})_{ij}(\phi_{1S})_{ji}}{z+E_{ij}}
+\]
+
+For a non-interacting Hamiltonian, when $\phi_{1S}=a^{\dagger}$ and $\phi_{2S}=a$, the master Green's function takes a very simple form:
+\[
+\widetilde{\mathcal{M}}_{\beta}=\frac1{z-\varepsilon}
+\]
+which is most easily proved by taking $|\psi_i\rangle$ to be the occupation number basis.
+
+\section*{The spectral function}
+is defined as
+\[
+\widetilde{A}_{\beta}=i\widetilde{D}_{\beta+}-i\widetilde{D}_{\beta-}
+\]
+which is equal to
+\[
+p_i(\phi_{2S})_{ij}(\phi_{1S})_{ji}\,2\pi\delta^1(\omega+E_{ij})-\eta p_i(\phi_{1S})_{ij}(\phi_{2S})_{ji}\,2\pi\delta^1(\omega-E_{ij})
+\]
+or equivalently,
+\[
+(p_i-\eta p_j)(\phi_{2S})_{ij}(\phi_{1S})_{ji}\,2\pi\delta^1(\omega+E_{ij})
+\]
+
+We have the following exact identity
+\[
+\int\frac{d\omega}{2\pi}\,\widetilde{A}_{\beta}=1
+\]
+for a general Hamiltonian, when $\phi_{1S}=a^{\dagger}$ and $\phi_{2S}=a$.
+
+\section*{The Kramers-Kronig relations}
+It can be easily verified that
+\[
+\widetilde{\mathcal{M}}_{\beta}=\int\frac{d\omega}{2\pi}\frac{\widetilde{A}_{\beta}}{z-\omega}
+\]
+thanks to the delta function. Now we have, if $\text{im}\,z>0$,
+\begin{align*}
+\widetilde{\mathcal{M}}_{\beta}
+&=\int\frac{d\omega}{2\pi}\frac{\widetilde{A}_{\beta}}{z-\omega}\\
+&=i\int\frac{d\omega}{2\pi}\frac{\widetilde{D}_{\beta+}-\widetilde{D}_{\beta-}}{z-\omega}=i\int_{C-}\frac{d\omega}{2\pi}\frac{\widetilde{D}_{\beta+}-\widetilde{D}_{\beta-}}{z-\omega}=i\int_{C-}\frac{d\omega}{2\pi}\frac{\widetilde{D}_{\beta+}}{z-\omega}=i\int\frac{d\omega}{2\pi}\frac{\widetilde{D}_{\beta+}}{z-\omega}
+\end{align*}
+which gives us
+\begin{align*}
+\widetilde{D}_{\beta+}&=i\int\frac{d\omega'}{2\pi}\frac{\widetilde{D}_{\beta+}}{\omega-\omega'+i0^+}\\
+\Rightarrow
+\widetilde{D}_{\beta+}&=i\mathcal{P}\int\frac{d\omega'}{\pi}\frac{\widetilde{D}_{\beta+}}{\omega-\omega'}
+\end{align*}
+or equivalently, the Kramers-Kronig relations,
+\begin{align*}
+\text{re}\,\widetilde{D}_{\beta+}&=-\mathcal{P}\int\frac{d\omega'}{\pi}\frac{\text{im}\,\widetilde{D}_{\beta+}}{\omega-\omega'}\\
+\text{im}\,\widetilde{D}_{\beta+}&=\mathcal{P}\int\frac{d\omega'}{\pi}\frac{\text{re}\,\widetilde{D}_{\beta+}}{\omega-\omega'}
+\end{align*}
+
+\chapter{Scattering theory}
+\section*{A useful calculation}
+\begin{align*}
+-i\int_{-\infty}^tdt'\langle\psi_j|H_{1I}|\psi_i\rangle
+&=-i\int_{-\infty}^tdt'e^{-i\omega_{ij}t'}\langle\psi_j|H_1|\psi_i\rangle\\
+&=-i\int_{-\infty}^tdt'e^{-i\omega_{ij}t'}e^{0^+t}\langle\psi_j|H_1|\psi_i\rangle\\
+&=\frac1{\omega_{ij}+i0^+}\,e^{-i\omega_{ij}t'}e^{0^+t}\langle\psi_j|H_1|\psi_i\rangle\\
+&=\frac1{\omega_{ij}+i0^+}\,e^{-i\omega_{ij}t'}\langle\psi_j|H_1|\psi_i\rangle
+\end{align*}
+
+\section*{The scattering $S$-matrix}
+is defined by
+\[
+S:=U_{+\infty\,-\infty}
+\]
+
+We have, using the calculation above,
+\[
+S_{ji}=\langle\psi_j|U_{+\infty\,-\infty}|\psi_i\rangle=\delta_{ji}-iT_{ji}2\pi\delta^1(\omega_{ij})
+\]
+The transition probability
+\[
+p_{i\to j}=|T_{ji}|^2\,2\pi t\,\delta^1(\omega_{ij})
+\]
+where we have defined
+\[
+T=V+V\frac1{E_i-H_0+i0^+}V+V\frac1{E_i-H_0+i0^+}V\frac1{E_i-H_0+i0^+}V+\cdots
+\]
+
+\section*{The Lippmann-Schwinger equation}
+We define
+\begin{align*}
+|\psi_{i+}\rangle&:=U_{0\,-\infty}|\psi_i\rangle\\
+|\psi_{i-}\rangle&:=U_{0\,+\infty}|\psi_i\rangle
+\end{align*}
+or equivalently,
+\begin{align*}
+\lim_{t\to-\infty}e^{-iHt}|\psi_{i+}\rangle&=\lim_{t\to-\infty}e^{-iH_0t}|\psi_i\rangle\\
+\lim_{t\to+\infty}e^{-iHt}|\psi_{i-}\rangle&=\lim_{t\to+\infty}e^{-iH_0t}|\psi_i\rangle
+\end{align*}
+and by definition,
+\begin{align*}
+S_{ji}
+&=\langle\psi_j|U_{+\infty\,-\infty}|\psi_i\rangle\\
+&=\langle\psi_j|U_{+\infty\,0}U_{0\,-\infty}|\psi_i\rangle\\
+&=\langle\psi_{j-}|\psi_{i+}\rangle
+\end{align*}
+
+To obtain the expression of $|\psi_{i+}\rangle$, we compute using the "useful calculation",
+\[
+\langle\psi_j|\psi_{i+}\rangle=\langle\psi_j|U_{0\,-\infty}|\psi_i\rangle=\langle\psi_j|\psi_i\rangle+\langle\psi_j|\frac1{E_i-H_0+i0^+}T|\psi_i\rangle
+\]
+from which we read the Lippmann-Schwinger equation
+\begin{align*}
+|\psi_{i+}\rangle
+&=|\psi_i\rangle+\frac1{E_i-H_0+i0^+}T|\psi_i\rangle\\
+&=|\psi_i\rangle+\frac1{E_i-H_0+i0^+}V|\psi_{i+}\rangle
+\end{align*}
+
+Since by definition $H_0|\psi_i\rangle=E_i|\psi_i\rangle$, we have
+\[
+H_0|\psi_{i+}\rangle+V|\psi_{i+}\rangle=E_i|\psi_{i+}\rangle
+\]
+namely $|\psi_{i+}\rangle$ is an eigenstate of the total $H$, with the same eigenvalue $E_i$. Therefore, if $|\psi_i\rangle$ is a scattering eigenstate of $H_0$, then $|\psi_{i+}\rangle$ is a scattering eigenstate of $H$.
+
+\section*{Scattering problem in three dimensions}
+The scattering problem in three dimensions is a good place to show the usefulness of the Lippmann-Schwinger equation. To set up the problem, notice that the scattering eigenstates of the free Hamiltonian $H_0$ are the plane waves, and thus we may take the state $|\psi_i\rangle$ to be the plane wave with wave vector $k_i$.
+
+We then use the Lippmann-Schwinger equation to calculate the scattering eigenstates of the total Hamiltonian
+\[
+|\psi_{i+}\rangle=|\psi_i\rangle+\frac1{E_i-H_0+i0^+}T|\psi_i\rangle
+\]
+
+Now let us compute the coordinate space wave function of the scattering eigenstates, and focus on its asymptotic behavior. Noticing the following calculation,
+\[
+\langle x|\frac1{E_i-H_0+i0^+}|y\rangle=2m\int\frac{d^3l}{(2\pi)^3}\frac{e^{il\cdot x}e^{-il\cdot y}}{k^2-l^2+i0^+}=-\frac{m}{2\pi}\frac{e^{ik_i\eta}}{\eta}
+\]
+where $\eta$ is the distance between $x$ and $y$. In the limit $x\to\infty$, we have
+\[
+\frac{e^{ik_i\eta}}{\eta}=\frac{e^{ik_ir}}{r}\,e^{-ik_iy\cdot\hat{x}}=\frac{e^{ik_ir}}{r}\,\langle\psi_j|y\rangle
+\]
+where $|\psi_j\rangle$ is the plane wave with wave vector $k_j=k_i\hat{x}$. Thus we read
+\[
+\langle x|\psi_{i+}\rangle=\langle x|\psi_i\rangle-\frac{m}{2\pi}\frac{e^{ik_ir}}{r}\,\langle\psi_j|T|\psi_i\rangle
+\]
+which means that asymptotically, the coordinate space wave function of the scattering eigenstates of the total $H$ is the superposition of the incoming plane wave $|\psi_i\rangle$ and an outgoing spherical wave, modulated by an angular distribution function $-\frac{m}{2\pi}T_{ji}$. Since we already know that the transition probability is proportional to $|T_{ji}|^2$, we now know that it is, equivalently, proportional to the square of the angular distribution function.
+
+\section*{The Wigner-Eckart theorem}
+The statement of the Wigner-Eckart theorem is quite intuitive: if some operators $T_{jm}$ transform like the $|jm\rangle$ states, where $j$ is fixed, then we have
+\[
+\langle\alpha,jm|T_{j_1m_1}|\alpha_2,j_2m_2\rangle=\langle jm|j_1m_1,j_2m_2\rangle\langle\alpha,j\|T_{j_1}\|\alpha_2,j_2\rangle
+\]
+where $\langle\alpha,j\|T_{j_1}\|\alpha_2,j_2\rangle$ is a number that does not depend on $m$, $m_1$ or $m_2$.
+
+\section*{Rotational symmetry}
+In the special case that the scattering potential $V$ is rotationally invariant, the general non-perturbative analysis above can be carried out further. In this case, the total $H$ is rotationally invariant, and thus the scattering $S$- and $T$-matrices are rotationally invariant. In other words, they are scalar operators. The Wigner-Eckart theorem:
+\begin{align*}
+\langle E,lm|S|E',l'm'\rangle
+&=\delta_{ll'}\delta_{mm'}\langle E,l\|S\|E',l'\rangle\\
+&=\delta_{ll'}\delta_{mm'}\langle E,l\|S\|E',l\rangle
+\end{align*}
+Since we also know that the result should be proportional to $\delta_{EE'}$, we arrive at the conclusion that the scattering $S$-matrix is diagonal in the $|E,lm\rangle$ basis, with diagonal elements depending only on $E$ and $l$,
+\[
+\langle E,lm|S|E',l'm'\rangle=\delta_{ll'}\delta_{mm'}\delta_{EE'}S_{E,l}
+\]
+and due to unitarity, the diagonal element $S_{E,l}$ can only be a phase.
+
+The $T$-matrix is also a scalar operator, and we have, considering the case $E'=E$,
+\begin{align*}
+\langle E,lm|T|E,l'm'\rangle
+&=\delta_{ll'}\delta_{mm'}\langle E,l\|T\|E,l'\rangle\\
+&=\delta_{ll'}\delta_{mm'}\langle E,l\|T\|E,l\rangle\\
+&=\delta_{ll'}\delta_{mm'}T_{E,l}
+\end{align*}
+Thus we conclude that
+\[
+S_{E,l}=1-2\pi iT_{E,l}
+\]
+
+\section*{Spherical harmonics}
+\[
+\mathcal{D}_{\phi\theta\psi}|jm\rangle=\mathcal{D}_{\phi\theta\psi,jm'jm}|jm'\rangle
+\]
+We have
+\begin{align*}
+Y_{lm,\hat{n}*}
+&=\langle lm|\hat{n}\rangle\\
+&=\langle lm|\mathcal{D}_{\phi\theta\psi}|\hat{z}\rangle\\
+&=\langle lm|\mathcal{D}_{\phi\theta\psi}|l'm'\rangle\langle l'm'|\hat{z}\rangle\\
+&=\langle lm|\mathcal{D}_{\phi\theta\psi}|lm'\rangle\langle lm'|\hat{z}\rangle\\
+&=\langle lm|\mathcal{D}_{\phi\theta\psi}|l0\rangle\langle l0|\hat{z}\rangle\\
+&=\mathcal{D}_{\phi\theta\psi,lml0}Y_{l0,\hat{z}*}
+\end{align*}
+where $Y_{l0,\hat{z}}=\sqrt{\frac{2l+1}{4\pi}}$. This calculation shows that the spherical harmonics are related to the matrix representation of the rotation operators in a simple way. Notice that
+\[
+\mathcal{D}_{\phi\theta\psi,lml0}=\mathcal{D}_{\phi\theta0,lml0}
+\]
+
+We also have
+\begin{align*}
+\langle E,lm|p\rangle
+&=\langle E,lm|\mathcal{D}_{\phi\theta\psi}|p\hat{z}\rangle\\
+&=\langle E,lm|\mathcal{D}_{\phi\theta\psi}|E',l'm'\rangle\langle E',l'm'|p\hat{z}\rangle\\
+&=\langle E,lm|\mathcal{D}_{\phi\theta\psi}|E,lm'\rangle\langle E,lm'|p\hat{z}\rangle\\
+&=\langle E,lm|\mathcal{D}_{\phi\theta\psi}|E,l0\rangle\langle E,l0|p\hat{z}\rangle\\
+&=\mathcal{D}_{\phi\theta\psi,lml0}\langle E,l0|p\hat{z}\rangle
+\end{align*}
+
+\chapter{Quantum field theory}
+\section*{Gell-Mann and Low theorem}
+We have, using $\rightsquigarrow$ and $\rightarrow$ diagrams, for example,
+\begin{align*}
+\phi_3\phi_2\phi_1
+&=U_{03}\phi_{3I}U_{30}U_{02}\phi_{2I}U_{20}U_{01}\phi_{1I}U_{10}\\
+&=U_{03}\phi_{3I}U_{32}\phi_{2I}U_{21}\phi_{1I}U_{10}
+\end{align*}
+where $\phi_j$ are time-dependent Heisenberg operators. We also have
+\begin{align*}
+U_{0\,-\infty}|\Omega_0\rangle&=\lim_{t_-\nwarrow-\infty}e^{iEt_-}e^{-iE_0t_-}|\Omega\rangle\langle\Omega|\Omega_0\rangle\\
+\langle\Omega_0|U_{+\infty\,0}&=\lim_{t_+\searrow+\infty}e^{iE_0t_+}e^{-iEt_+}\langle\Omega_0|\Omega\rangle\langle\Omega|
+\end{align*}
+Notice that $U_{0\,-\infty}$ and $U_{+\infty\,0}$ are not unitary! since $t_-$ and $t_+$ are not real.
+\[
+\langle\Omega|\phi_3\phi_2\phi_1|\Omega\rangle=\frac{\langle\Omega_0|U_{+\infty\,3}\phi_{3I}U_{32}\phi_{2I}U_{21}\phi_{1I}U_{1\,-\infty}|\Omega_0\rangle}{\langle\Omega_0|U_{+\infty\,-\infty}|\Omega_0\rangle}
+\]
+
+\section*{The path-integral}
+We have
+\[
+\langle\Omega|\phi_3\phi_2\phi_1|\Omega\rangle=\frac{\langle\Omega_0|U_{+\infty\,0}\phi_3\phi_2\phi_1U_{0\,-\infty}|\Omega_0\rangle}{\langle\Omega_0|U_{+\infty\,0}U_{0\,-\infty}|\Omega_0\rangle}
+\]
+after canceling some factors,
+\[
+\langle\Omega|\phi_3\phi_2\phi_1|\Omega\rangle=\lim_{t_-\nwarrow-\infty}\lim_{t_+\searrow+\infty}\frac{\langle\Omega_0|e^{-iHt_+}\phi_3\phi_2\phi_1e^{iHt_-}|\Omega_0\rangle}{\langle\Omega_0|e^{-iHt_+}e^{iHt_-}|\Omega_0\rangle}
+\]
+
+In fact, we have
+\[
+\langle\Omega|\phi_3\phi_2\phi_1|\Omega\rangle=\lim_{t_-\nwarrow-\infty}\lim_{t_+\searrow+\infty}\frac{\langle\Omega'|e^{-iHt_+}\phi_3\phi_2\phi_1e^{iHt_-}|\Omega''\rangle}{\langle\Omega'|e^{-iHt_+}e^{iHt_-}|\Omega''\rangle}
+\]
+for any $|\Omega'\rangle$ and $|\Omega''\rangle$. This is because
+\[
+\lim_{t\searrow+\infty}e^{-iHt}=\lim_{t\searrow+\infty}e^{-iEt}|\Omega\rangle\langle\Omega|
+\]
+
+\section*{Second quantization}
+\[
+\Psi=\Psi^0+\Psi^1+\Psi^2+\Psi^3+\cdots
+\]
+or more precisely,
+\[
+\mathcal{F}=\mathcal{H}^0\oplus\mathcal{H}^1\oplus\mathcal{H}^2\oplus\mathcal{H}^3\oplus\cdots
+\]
+
+We have
+\[
+\Psi=\Psi^0+C_i|\psi_i\rangle+C_{ij}|\psi_i\rangle|\psi_j\rangle+C_{ijk}|\psi_i\rangle|\psi_j\rangle|\psi_k\rangle+\cdots
+\]
+and
+\begin{align*}
+\mathcal{P}_{12}\Psi
+&=\Psi^0+C_i|\psi_i\rangle+C_{ij}|\psi_j\rangle|\psi_i\rangle+C_{ijk}|\psi_j\rangle|\psi_i\rangle|\psi_k\rangle+\cdots\\
+&=\Psi^0+C_i|\psi_i\rangle+C_{ji}|\psi_i\rangle|\psi_j\rangle+C_{jik}|\psi_i\rangle|\psi_j\rangle|\psi_k\rangle+\cdots
+\end{align*}
+which means that
+\[
+C_{ji\cdots}=\zeta C_{ij\cdots}
+\]
+
+Therefore, we define
+\[
+|\psi_i\psi_j\cdots\rangle=\frac1{\sqrt{n!}}\sum_{\mathcal{P}}\zeta_{\mathcal{P}}|\psi_{\mathcal{P}i}\rangle|\psi_{\mathcal{P}j}\rangle\cdots
+\]
+which is a over-complete basis of the $n$-particle subspace $\mathcal{H}^n$. Notice that
+\begin{align*}
+\langle\phi_i\phi_j\cdots|\psi_k\psi_l\cdots\rangle
+&=\frac1{n!}\sum_{\mathcal{P}}\sum_{\mathcal{Q}}\zeta_{\mathcal{P}}\zeta_{\mathcal{Q}}\langle\phi_{\mathcal{P}i}|\psi_{\mathcal{Q}k}\rangle\langle\phi_{\mathcal{P}j}|\psi_{\mathcal{Q}l}\rangle\cdots\\
+&=\sum_{\mathcal{P}}\zeta_{\mathcal{P}}\langle\phi_i|\psi_{\mathcal{P}k}\rangle\langle\phi_j|\psi_{\mathcal{P}l}\rangle\cdots\\
+&=\det{\begin{pmatrix}
+\langle\phi_i|\psi_k\rangle&\langle\phi_i|\psi_l\rangle&\cdots\\
+\langle\phi_j|\psi_k\rangle&\langle\phi_j|\psi_l\rangle&\cdots\\
+\vdots&\vdots&\ddots
+\end{pmatrix}}
+\end{align*}
+which, in particular, means that
+\[
+\langle\psi_i\psi_i\cdots\psi_i\psi_j\psi_j\cdots\psi_j\cdots|\psi_i\psi_i\cdots\psi_i\psi_j\psi_j\cdots\psi_j\cdots\rangle=n_i!n_j!\cdots
+\]
+
+A natural complete orthonormal basis of the $n$-particle subspace $\mathcal{H}^n$ is the occupation number basis
+\[
+|\cdots n_i\cdots n_j\cdots\rangle=\frac{|\cdots\psi_i\psi_i\cdots\psi_i\cdots\psi_j\psi_j\cdots\psi_j\cdots\rangle}{\sqrt{\cdots n_i!\cdots n_j!\cdots}}
+\]
+
+\section*{Creation and annihilation operators}
+We define
+\[
+(a_{\psi})^{\dagger}|\psi_i\psi_j\cdots\rangle:=|\psi\psi_i\psi_j\cdots\rangle
+\]
+such that using
+\begin{align*}
+\langle\phi_i\phi_j\cdots|a_{\psi}|\psi_k\psi_l\cdots\rangle
+&=\langle\psi_k\psi_l\cdots|(a_{\psi})^{\dagger}|\phi_i\phi_j\cdots\rangle^*\\
+&=\langle\psi_k\psi_l\cdots|\psi\phi_i\phi_j\cdots\rangle^*\\
+&=\langle\psi\phi_i\phi_j\cdots|\psi_k\psi_l\cdots\rangle
+\end{align*}
+one can prove that
+\[
+(a_{\phi})^{\dagger}(a_{\psi})^{\dagger}-\zeta(a_{\psi})^{\dagger}(a_{\phi})^{\dagger}=0
+\]
+as well as
+\[
+\boxed{a_{\phi}(a_{\psi})^{\dagger}-\zeta(a_{\psi})^{\dagger}a_{\phi}=\langle\phi|\psi\rangle}
+\]
+
+\section*{Second quantized operators}
+In the Fock space, one-body operators take the form
+\[
+\widetilde{\mathcal{O}}_1=\widetilde{\mathcal{O}}_1|_{\mathcal{H}0}\oplus\widetilde{\mathcal{O}}_1|_{\mathcal{H}1}\oplus\widetilde{\mathcal{O}}_1|_{\mathcal{H}2}\oplus\widetilde{\mathcal{O}}_1|_{\mathcal{H}3}\oplus\cdots
+\]
+where $\widetilde{\mathcal{O}}_1|_{\mathcal{H}n}$ is like the total angular momentum of $n$ particles
+\[
+\widetilde{\mathcal{O}}_1|_{\mathcal{H}n}=\big(\mathcal{O}_1\otimes1\otimes\cdots\otimes1\big)+\big(1\otimes\mathcal{O}_1\otimes\cdots\otimes1\big)+\cdots+\big(1\otimes1\otimes\cdots\otimes\mathcal{O}_1\big)
+\]
+
+It is easy to verify that
+\begin{align*}
+\widetilde{\mathcal{O}}_1
+&=\mathcal{O}_{1i}(a_{\psi i})^{\dagger}a_{\psi i}\\
+&=\mathcal{O}_{1i}\langle\phi_j|\psi_i\rangle\langle\psi_i|\phi_k\rangle(a_j)^{\dagger}a_k\\
+&=\langle\phi_j|\mathcal{O}_1|\phi_k\rangle(a_j)^{\dagger}a_k
+\end{align*}
+
+For two-body operators
+\[
+\widetilde{\mathcal{O}}_2=\widetilde{\mathcal{O}}_2|_{\mathcal{H}0}\oplus\widetilde{\mathcal{O}}_2|_{\mathcal{H}1}\oplus\widetilde{\mathcal{O}}_2|_{\mathcal{H}2}\oplus\widetilde{\mathcal{O}}_2|_{\mathcal{H}3}\oplus\cdots
+\]
+Notice that we may always write
+\[
+\mathcal{O}_2=\sum_{I\le J}C_{IJ}\,\big[\big(\mathcal{O}_{1I}\otimes\mathcal{O}_{1J}\big)+\big(\mathcal{O}_{1J}\otimes\mathcal{O}_{1I}\big)\big]
+\]
+since the two-body operator is always symmetric under permutation.
+
+For concreteness, take $\mathcal{H}^3$ as an example, we have
+\begin{align*}
+\widetilde{\mathcal{O}}_2|_{\mathcal{H}3}
+&=C_{IJ}\,\big[\big(\mathcal{O}_{1I}\otimes\mathcal{O}_{1J}\otimes1\big)+\big(\mathcal{O}_{1I}\otimes1\otimes\mathcal{O}_{1J}\big)+\big(1\otimes\mathcal{O}_{1I}\otimes\mathcal{O}_{1J}\big)\big]\\
+&\qquad+C_{IJ}\,\big[\big(\mathcal{O}_{1J}\otimes\mathcal{O}_{1I}\otimes1\big)+\big(\mathcal{O}_{1J}\otimes1\otimes\mathcal{O}_{1I}\big)+\big(1\otimes\mathcal{O}_{1J}\otimes\mathcal{O}_{1I}\big)\big]
+\end{align*}
+where we have suppressed the $\sum_{I\le J}$ symbol. Now this can be written as
+\[
+\widetilde{\mathcal{O}}_2|_{\mathcal{H}3}=C_{IJ}\,\widetilde{\mathcal{O}}_{1I}|_{\mathcal{H}3}\widetilde{\mathcal{O}}_{1J}|_{\mathcal{H}3}-C_{IJ}\,\widetilde{\mathcal{O}}_{1I}\widetilde{\mathcal{O}}_{1J}|_{\mathcal{H}3}
+\]
+where
+\[
+\widetilde{\mathcal{O}}_{1I}\widetilde{\mathcal{O}}_{1J}|_{\mathcal{H}3}=\big(\mathcal{O}_{1I}\mathcal{O}_{1J}\otimes1\otimes1\big)+\big(1\otimes\mathcal{O}_{1I}\mathcal{O}_{1J}\otimes1\big)+\big(1\otimes1\otimes\mathcal{O}_{1I}\mathcal{O}_{1J}\big)
+\]
+
+The two-particle operator can now be written as
+\begin{align*}
+\widetilde{\mathcal{O}}_2
+&=C_{IJ}\,\langle\phi_i|\mathcal{O}_{1I}|\phi_j\rangle\langle\phi_k|\mathcal{O}_{1J}|\phi_l\rangle(a_i)^{\dagger}a_j(a_k)^{\dagger}a_l-C_{IJ}\,\langle\phi_i|\mathcal{O}_{1I}\mathcal{O}_{1J}|\phi_l\rangle(a_i)^{\dagger}a_l\\
+&=C_{IJ}\,\langle\phi_i|\mathcal{O}_{1I}|\phi_j\rangle\langle\phi_k|\mathcal{O}_{1J}|\phi_l\rangle(a_i)^{\dagger}a_j(a_k)^{\dagger}a_l-C_{IJ}\,\langle\phi_i|\mathcal{O}_{1I}|\phi_j\rangle\langle\phi_k|\mathcal{O}_{1J}|\phi_l\rangle(a_i)^{\dagger}a_l\delta_{jk}\\
+&=C_{IJ}\,\langle\phi_i|\mathcal{O}_{1I}|\phi_j\rangle\langle\phi_k|\mathcal{O}_{1J}|\phi_l\rangle(a_i)^{\dagger}(a_k)^{\dagger}a_la_j\\
+&=C_{IJ}\,\langle\phi_k|\mathcal{O}_{1J}|\phi_l\rangle\langle\phi_i|\mathcal{O}_{1I}|\phi_j\rangle(a_k)^{\dagger}(a_i)^{\dagger}a_ja_l
+\end{align*}
+and we finally conclude that
+\[
+\widetilde{\mathcal{O}}_2=\frac12\,\langle\phi_i|\langle\phi_k|\mathcal{O}_2|\phi_j\rangle|\phi_l\rangle(a_i)^{\dagger}(a_k)^{\dagger}a_la_j
+\]
+
+\section*{The number operator}
+is the identity operator $1:\mathcal{H}^1\to\mathcal{H}^1$ lifted to the Fock space: $\mathcal{N}=(a_j)^{\dagger}a_j$.
+
+\section*{Quantum statistical mechanics}
+is governed by
+\[
+\rho=Z^{-1}e^{-\beta\mathcal{H}+\beta\mu\mathcal{N}}
+\]
+
+\section*{The Legendre transformation}
+We have
+\[
+Z=e^{iW}=\int D\phi\,e^{iS+iJ\cdot\phi}
+\]
+such that the expectation value
+\[
+\phi_{\text{exp}}=\frac1{iZ}\frac{\partial Z}{\partial J}=\frac{\partial W}{\partial J}
+\]
+
+The effective action $\Gamma$ is defined by the following Legendre transformation
+\[
+-\Gamma=J\cdot\phi-W
+\]
+and should be viewed as a function of $\phi$,
+\[
+-\delta\Gamma=\delta J\cdot\phi+J\cdot\delta\phi-\frac{\partial W}{\partial J}\cdot\delta J=J\cdot\delta\phi
+\]
+
+\section*{The effective action}
+We define a path-integral using the effective action in place of the action
+\[
+Z_{\Gamma}=\int D\phi\,e^{i\Gamma+iJ\cdot\phi}
+\]
+
+We may use the saddle point approximation, which requires that
+\[
+\frac{\partial\Gamma}{\partial\phi}+J=0
+\]
+and we have
+\[
+Z_{\Gamma}\approx e^{i\Gamma+iJ\cdot\phi}=e^{iW}
+\]
+which means that the original $Z$ and $W$ can be computed by drawing tree diagrams of the effective action only! We thus conclude that the propagator and interaction vertices in the expression of the effective action are \textbf{exact}.
+
+\section*{The quantum variational principle}
+Finally, notice that at $J=0$, we have
+\[
+\delta\Gamma=-J\cdot\delta\phi=0
+\]
+and the field is now equal to
+\[
+\frac{\partial W}{\partial J}|_{J=0}=\phi_{\text{exp}}|_{J=0}
+\]
+namely $\phi_{\text{exp}}|_{J=0}$ is the solution to the equation $\delta\Gamma=0$. This is to be compared with the fact that $\phi_{\text{cl}}$ is the solution to the equation $\delta S=0$.
+
+\section*{Conformal transformations}
+A map $\phi:\big(M_1,g_1\big)\to\big(M_2,g_2\big)$ is called conformal if
+\[
+\phi^*g_2=\Omega^2g_1
+\]
+or equivalently in local coordinates,
+\[
+g_{2\mu\nu}\frac{\partial x^{2\mu}\circ\phi}{\partial x^{1\rho}}\frac{\partial x^{2\nu}\circ\phi}{\partial x^{1\sigma}}=\Omega^2g_{1\rho\sigma}
+\]
+
+\section*{Noether's theorem}
+For the shift $\psi'=\psi+\delta\psi$, where $\delta\psi$ may depend on $\psi$,
+\begin{align*}
+\delta\mathcal{L}
+&=\frac{\partial\mathcal{L}}{\partial\psi}\,\delta\psi+\frac{\partial\mathcal{L}}{\partial\partial_{\mu}\psi}\,\delta\partial_{\mu}\psi\\
+&=\partial_{\mu}\left(\frac{\partial\mathcal{L}}{\partial\partial_{\mu}\psi}\right)\delta\psi+\frac{\partial\mathcal{L}}{\partial\partial_{\mu}\psi}\,\partial_{\mu}\delta\psi+\frac{\partial S}{\partial\psi}\,\delta\psi\\
+&=\partial_{\mu}\left(\frac{\partial\mathcal{L}}{\partial\partial_{\mu}\psi}\,\delta\psi\right)+\frac{\partial S}{\partial\psi}\,\delta\psi
+\end{align*}
+namely some current is conserved \textbf{on-shell}.
+
+\section*{The Ward identity}
+For the shift $\phi'=\phi+\delta\phi$, where $\delta\phi$ may depend on $\phi$,
+\begin{align*}
+\int D\phi\,e^{-S}X
+&=\int D\phi'\,e^{-S'}X'\\
+&=\int D\phi\,e^{-S}\left(1-\int d^2x\,T_{\mu\nu}\partial_{\mu}\varepsilon_{\nu}\right)\big(X+\delta X\big)\\[10pt]
+0
+&=\int D\phi\,e^{-S}\left(\delta X-X\int d^2x\,T_{\mu\nu}\partial_{\mu}\varepsilon_{\nu}\right)\\
+&=\int D\phi\,e^{-S}\left(\delta X+X\int d^2x\,\varepsilon_{\nu}\partial_{\mu}T_{\mu\nu}\right)
+\end{align*}
+Integrating the Ward identity over a small pillbox shows that $\int dx\,T_{0\nu}$ is the generator of spacetime symmetries.
+
+\section*{The conformal Ward identity}
+The right-hand-side of the equation above can actually be written as
+\begin{align*}
+0
+&=\int D\phi\,e^{-S}\left(\delta X+X\int_{\mathcal{B}}d^2x\,\varepsilon_{\nu}\partial_{\mu}T_{\mu\nu}\right)\\
+&=\int D\phi\,e^{-S}\left(\delta X-X\int_{\mathcal{B}}d^2x\,T_{\mu\nu}\partial_{\mu}\varepsilon_{\nu}+X\int_{\partial\mathcal{B}}\varepsilon_{\mu\rho}dx_{\rho}\,\varepsilon_{\nu}T_{\mu\nu}\right)\\[10pt]
+0
+&=\int D\phi\,e^{-S}\left(\delta'X+X\int_{\partial\mathcal{B}}\varepsilon_{\mu\rho}dx_{\rho}\,\varepsilon_{\nu}T_{\mu\nu}\right)
+\end{align*}
+
+\chapter{The Kondo problem}
+\section*{The effective Hamiltonian method}
+We have, since $\mathcal{P}_j\mathcal{P}_j=1$,
+\[
+\mathcal{P}_iH\mathcal{P}_j\mathcal{P}_j\psi=E\mathcal{P}_i\psi
+\]
+and when $\mathcal{P}_1+\mathcal{P}_2=1$,
+\begin{align*}
+H_{11}\psi_1+H_{12}\psi_2&=E\psi_1\\
+H_{21}\psi_1+H_{22}\psi_2&=E\psi_2
+\end{align*}
+
+The second equation can be used to solve for $\psi_2$,
+\[
+\psi_2=\frac1{E-H_{22}}H_{21}\psi_1
+\]
+which gives us a self-consistent equation
+\[
+\left(H_{11}+H_{12}\frac1{E-H_{22}}H_{21}\right)\psi_1=E\psi_1
+\]
+
+\section*{Applications to degenerate perturbation theory}
+To second order in the perturbation,
+\begin{align*}
+H_{\text{eff}}
+&=E_11+V_{11}+V_{12}\frac1{E-H_{0\,22}-V_{22}}V_{21}\\
+&\approx E_11+V_{11}+V_{12}\frac1{E_1-H_{0\,22}}V_{21}
+\end{align*}
+
+\section*{AFM coupling in the Hubbard model}
+\[
+H=-t\sum_{i\ne j}(a_{is})^{\dagger}a_{js}+U\sum_in_{i+}n_{i-}
+\]
+The effective Hamiltonian is equal to
+\begin{align*}
+H_{\text{eff}}
+&=\frac{t^2}{E-U}\sum_{i\ne j}\sum_{k\ne l}(a_{is})^{\dagger}a_{js}(a_{kr})^{\dagger}a_{lr}\\
+&=\frac{t^2}{E-U}\sum_{i\ne j}(a_{is})^{\dagger}a_{js}(a_{jr})^{\dagger}a_{ir}
+\end{align*}
+Notice that
+\begin{align*}
+\sum_{i\ne j}S_i\cdot S_j
+&=\frac12\sum_{i\ne j}(a_{is})^{\dagger}(a_{jr})^{\dagger}a_{js}a_{ir}-\frac14\sum_{i\ne j}(a_{is})^{\dagger}(a_{jr})^{\dagger}a_{jr}a_{is}\\
+&=\frac12\sum_{i\ne j}(a_{is})^{\dagger}a_{is}-\frac12\sum_{i\ne j}(a_{is})^{\dagger}a_{js}(a_{jr})^{\dagger}a_{ir}-\frac14\sum_{i\ne j}(a_{is})^{\dagger}a_{is}(a_{jr})^{\dagger}a_{jr}\\
+&=\frac12-\frac12\sum_{i\ne j}(a_{is})^{\dagger}a_{js}(a_{jr})^{\dagger}a_{ir}
+\end{align*}
+which means that the effective Hamiltonian contains an interaction
+\[
+H_{\text{eff}}\approx\frac{2t^2}{U}\sum_{i\ne j}S_i\cdot S_j+\frac{t^2}{-U}
+\]
+
+\section*{The Anderson impurity model}
+\[
+H=\sum_{ks}\varepsilon_kn_{ks}+\sum_{ks}V_k(a_{ks})^{\dagger}A_s+\text{h.c.}+\sum_s\mathcal{E}N_s+UN_+N_-
+\]
+Notice that we have
+\[
+H_{02}=H_{20}=0
+\]
+
+\section*{The low-energy effective Hamiltonian}
+In the low-energy subspace, we have
+\begin{align*}
+H_{10}\frac1{E-H_{00}}H_{01}
+&=\sum_{ks}\sum_{lr}V_{k*}V_l(A_s)^{\dagger}a_{ks}\frac1{E-H_{00}}(a_{lr})^{\dagger}A_r\\
+&=\sum_{ks}\sum_{lr}V_{k*}V_l(A_s)^{\dagger}a_{ks}(a_{lr})^{\dagger}A_r\frac1{E-H_{00}-\varepsilon_l}\\
+&\approx\sum_{ks}\sum_{lr}V_{k*}V_l(A_s)^{\dagger}a_{ks}(a_{lr})^{\dagger}A_r\frac1{\mathcal{E}-\varepsilon_l}
+\end{align*}
+as well as
+\begin{align*}
+H_{12}\frac1{E-H_{22}}H_{21}
+&=\sum_{ks}\sum_{lr}V_kV_{l*}(a_{ks})^{\dagger}A_s\frac1{E-H_{22}}(A_r)^{\dagger}a_{lr}\\
+&=\sum_{ks}\sum_{lr}V_kV_{l*}(a_{ks})^{\dagger}A_s(A_r)^{\dagger}a_{lr}\frac1{E-H_{22}+\varepsilon_l}\\
+&\approx\sum_{ks}\sum_{lr}V_kV_{l*}(a_{ks})^{\dagger}A_s(A_r)^{\dagger}a_{lr}\frac1{-\mathcal{E}-U+\varepsilon_l}
+\end{align*}
+and thus
+\[
+H_{\text{l-e}}\approx H_{11}-\sum_{ks}\sum_{lr}V_{k*}V_l\left[\frac{(A_s)^{\dagger}a_{ks}(a_{lr})^{\dagger}A_r}{-\mathcal{E}+\varepsilon_l}+\frac{(a_{lr})^{\dagger}A_r(A_s)^{\dagger}a_{ks}}{\mathcal{E}+U-\varepsilon_k}\right]
+\]
+
+\section*{The Kondo model}
+Notice that
+\begin{align*}
+s_{lk}\cdot S
+&=\frac12\sum_{sr}(a_{lr})^{\dagger}(A_s)^{\dagger}A_ra_{ks}-\frac14\sum_{sr}(a_{lr})^{\dagger}(A_s)^{\dagger}A_sa_{kr}\\
+&=\frac12\sum_{sr}(a_{lr})^{\dagger}(A_s)^{\dagger}A_ra_{ks}-\frac14\sum_r(a_{lr})^{\dagger}a_{kr}
+\end{align*}
+we see that the low-energy effective Hamiltonian contains an interaction
+\[
+2\sum_{kl}V_{k*}V_l\left[\frac1{-\mathcal{E}+\varepsilon_l}+\frac1{\mathcal{E}+U-\varepsilon_k}\right]s_{lk}\cdot S
+\]
+which is anti-ferromagnetic near the Fermi surface.
+
+\chapter{Constraints and the Hamiltonian formalism}
+\section*{The transverse vector field}
+The Lagrangian is
+\begin{align*}
+-\mathcal{L}
+&=\tfrac14F_{\mu\nu}F^{\mu\nu}+\tfrac12m^2A_{\mu}A^{\mu}\\
+&=\tfrac12F_{0i}F^{0i}+\tfrac14F_{ij}F^{ij}+\tfrac12m^2A_0A^0+\tfrac12m^2A_iA^i
+\end{align*}
+and thus
+\begin{align*}
+\Pi_0&=\frac{\partial\mathcal{L}}{\partial\partial_0A^0}=0\qquad
+\text{constraint}\\
+\Pi_i&=\frac{\partial\mathcal{L}}{\partial\partial_0A^i}=F_{0i}
+\end{align*}
+therefore the Hamiltonian is
+\begin{align*}
+\mathcal{H}
+&=\Pi_{\mu}\partial_0A^{\mu}-\mathcal{L}\\
+&=\Pi_0\partial_0A^0+\Pi_i\partial_0A^i-\mathcal{L}\\
+&=\tfrac12\Pi_i\Pi_i-\Pi_i\partial_iA^0+\tfrac14F_{ij}F^{ij}+\tfrac12m^2A_0A^0+\tfrac12m^2A_iA^i\\
+&=\tfrac12\Pi_i\Pi_i+A^0\partial_i\Pi_i+\tfrac14F_{ij}F^{ij}+\tfrac12m^2A_0A^0+\tfrac12m^2A_iA^i
+\end{align*}
+
+\section*{The equations of motion}
+are
+\begin{align*}
+\partial_0A^{\mu}&=\frac{\partial\mathcal{H}}{\partial\Pi_{\mu}}+\lambda\frac{\partial\phi}{\partial\Pi_{\mu}}\qquad
+\phi\equiv\Pi_0\\
+{-}\partial_0\Pi_{\mu}&=\frac{\partial\mathcal{H}}{\partial A^{\mu}}+\lambda\frac{\partial\phi}{\partial A^{\mu}}
+\end{align*}
+or more explicitly,
+\begin{align*}
+\partial_0A^0&=\lambda\\
+{-}\partial_0\Pi_0&=\partial_i\Pi_i-m^2A^0\\[5pt]
+\partial_0A^i&=\Pi_i-\partial_iA^0\\
+{-}\partial_0\Pi_i&=-\partial_j\partial_jA^i+\partial_j\partial_iA^j+m^2A^i
+\end{align*}
+
+\section*{The massive case}
+The consistency condition $\partial_0\Pi_0=0$ requires that
+\[
+A^0=m^{-2}\partial_i\Pi_i
+\]
+and the condition $\partial_0\partial_0\Pi_0=0$ requires that
+\[
+0=\partial_0\partial_i\Pi_i-m^2\partial_0A^0=\partial_0\partial_i\Pi_i-\partial_0\partial_i\Pi_i=0\qquad
+\text{automatically satisfied}
+\]
+Therefore, no constraints other than the above two are needed. Notice that
+\[
+\big\{\Pi_{0x},\partial_0\Pi_{0y}\big\}=-\big\{\Pi_{0x},\partial_i\Pi_{iy}-m^2A^{0y}\big\}=-m^2\delta_{xy}\ne0
+\]
+and thus the two constraints are second class.
+
+\section*{The massless case}
+The consistency condition $\partial_0\Pi_0=0$ requires that
+\[
+\partial_i\Pi_i=0
+\]
+and the condition $\partial_0\partial_0\Pi_0=0$ requires that
+\[
+0=\partial_i\partial_0\Pi_i=\partial_i\partial_j\partial_jA^i-\partial_i\partial_j\partial_iA^j=0\qquad
+\text{automatically satisfied}
+\]
+Therefore, no constraints other than the above two are needed. Notice that
+\begin{align*}
+\big\{\Pi_{0x},\Pi_{0y}\big\}&=0\\
+\big\{\partial_0\Pi_{0x},\partial_0\Pi_{0y}\big\}&=\big\{\partial_i\Pi_{ix},\partial_j\Pi_{jy}\big\}=0\\
+\big\{\Pi_{0x},\partial_0\Pi_{0y}\big\}&=-\big\{\Pi_{0x},\partial_i\Pi_{iy}\big\}=0
+\end{align*}
+and thus the two constraints are first class.
+
+\chapter{Miscellaneous}
+\section*{The guiding center coordinates}
+are conserved, namely they commute with the Hamiltonian, and we have
+\[
+\big[X,Y\big]=\big[x+l^2\pi_y,y-l^2\pi_x\big]=-il^2
+\]
+Notice that they travel on equipotential lines
+\begin{align*}
+i\dot{X}_1&=\big[X_1,V\big]=-il^2\partial_2V\\
+i\dot{X}_2&=\big[X_2,V\big]=+il^2\partial_1V
+\end{align*}
+
+\section*{Spin-waves and magnons}
+The Schwinger-boson representation
+\begin{align*}
+S_+&=a^{\dagger}b\\
+S_-&=b^{\dagger}a\\
+2S_z&=a^{\dagger}a-b^{\dagger}b
+\end{align*}
+gives us the Holstein-Primakoff transformation if we use the constraint
+\[
+a^{\dagger}a+b^{\dagger}b=2S
+\]
+The spin-wave is obtained by, e.g., expanding around $S_z=-S$, namely setting
+\[
+b=b^{\dagger}=\sqrt{2S-a^{\dagger}a}\approx\sqrt{2S}
+\]
+
+\section*{The Bogoliubov transformation}
+In order to diagonalize a Hamiltonian of the form
+\[
+\Psi_{i\dagger}A_{ij}\Psi_j
+\]
+while keeping the commutation relations, we want
+\[
+U^{\dagger}AU=\Lambda
+\]
+where $\Lambda$ is a diagonal matrix, as well as
+\[
+C_{ij}=\big[\Psi_i,\Psi_{j\dagger}\big]=\big[U_{ik}\Phi_k,U_{jl*}\Phi_{l\dagger}\big]=U_{ik}U_{jl*}C_{kl}\Rightarrow
+C=UCU^{\dagger}
+\]
+where $C$ is, by assumption, a diagonal matrix. Therefore we have
+\[
+CAU=UCU^{\dagger}AU=UC\Lambda
+\]
+which means that $U$ diagonalizes the matrix $CA$, with eigenvalues $C\Lambda$.
+
+\section*{The Wilsonian renormalization group}
+1. The "effective action".
+\[
+Z=\int D\phi_{\Lambda}\exp{iS_{\Lambda}}=\int D\phi_{\Lambda'}\exp{iS_{\Lambda'}}=\cdots
+\]
+
+2. Effective field theory.
+\[
+\text{$q_{\Lambda}=\frac{Q_{\Lambda}}{\Lambda^{\dim{Q}}}$ is meaningful}
+\]
+
+3. Renormalization group fix points.
+\[
+\text{$\big\{q_{\Lambda'}\big\}=\big\{q_{\Lambda}\big\}$ up to a field rescaling}
+\]
+\end{document}
