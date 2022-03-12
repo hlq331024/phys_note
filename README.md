@@ -14,5 +14,5 @@ Up to now I have read the following:
 
 + 数学分析：数学分析新讲 by 张筑生
 + 线性代数：Linear Algebra Done Right by Sheldon Axler
-+ 点集拓扑：Topology Without Tears by Sidney Morris (Unfinished: Skipped chapters 10 and 12 \ before remark 10.3.34)
-+ 抽象代数：Algebra by Michael Artin (Reading: Finished chapters 2 and 6)
++ 点集拓扑：Topology Without Tears by Sidney Morris (Unfinished: Skipped chapter 10 after remark 10.3.34 and chapter 12)
++ 抽象代数：Algebra by Michael Artin (Reading)
