@@ -16,3 +16,4 @@ Up to now I have read the following:
 + 线性代数：Linear Algebra Done Right by Sheldon Axler
 + 点集拓扑：Topology Without Tears by Sidney Morris ( **Unfinished**: Skipped chapter 10 after remark 10.3.34 and chapter 12 )
 + 抽象代数：Algebra by Michael Artin ( Reading )
++ 复分析：Complex Analysis by Eberhard Freitag & Rolf Busam ( Reading )
