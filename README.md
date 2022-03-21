@@ -17,3 +17,4 @@ Up to now I have read the following:
 + 点集拓扑：Topology Without Tears by Sidney Morris ( **Paused**. What's left: Chapter 10 after remark 10.3.34 & Chapter 12 )
 + 抽象代数：Algebra by Michael Artin ( Reading )
 + 复分析：Complex Analysis by Eberhard Freitag & Rolf Busam ( Reading )
++ 微分流形：An Intoduction to Manifolds by Loring Tu ( Reading )
