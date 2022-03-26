@@ -10,7 +10,7 @@ sXXeYY = Weinberg chapter XX section YY.
 
 Recently I've decided to read some math texts seriously and carefully, with the aim being that for each topic that I have chosen for myself, pick one book and read it from the first to the last sentence. That is, try my best not to skip anything in order to get a coherent, integral view of the topic.
 
-Up to now I have read / am reading the following:
+Up to now I am reading / have read the following:
 
 + 数学分析：数学分析新讲 by 张筑生
 + 线性代数：Linear Algebra Done Right by Sheldon Axler
