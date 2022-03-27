@@ -18,5 +18,5 @@ Up to now I am reading / have read the following:
 + 抽象代数：Algebra by Michael Artin ( Reading )
 + 复分析：Complex Analysis by Eberhard Freitag & Rolf Busam ( Reading )
 + 微分流形：An Intoduction to Manifolds by Loring Tu ( Reading )
-+ 实分析：Measure, Integration & Real Analysis by Sheldon Axler ( Reading. Finished: Chapter 1, 2 )
++ 实分析：Measure, Integration & Real Analysis by Sheldon Axler ( **Paused**. Finished: Chapter 1, 2 )
 + 代数拓扑：An Introduction to Algebraic Topology by Joseph Rotman ( Reading )
