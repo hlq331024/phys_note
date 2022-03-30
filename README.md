@@ -15,8 +15,8 @@ Up to now I am reading / have read the following:
 + 数学分析：数学分析新讲 by 张筑生
 + 线性代数：Linear Algebra Done Right by Sheldon Axler
 + 点集拓扑：Topology Without Tears by Sidney Morris ( **Paused**. What's left: Chapter 10 after remark 10.3.34 & Chapter 12 )
-+ 抽象代数：Algebra by Michael Artin ( **Paused**. Finished: Chapter 2, 6, 7, 11, 14 )
-+ 复分析：Complex Analysis by Eberhard Freitag & Rolf Busam ( **Paused**. Finished: Chapter 1, 2, 3 )
++ 抽象代数：Algebra by Michael Artin ( **Paused**. Completed: Chapter 2, 6, 7, 11, 14 )
++ 复分析：Complex Analysis by Eberhard Freitag & Rolf Busam ( **Paused**. Completed: Chapter 1, 2, 3 )
 + 微分流形：An Intoduction to Manifolds by Loring Tu ( Reading )
-+ 实分析：Measure, Integration & Real Analysis by Sheldon Axler ( **Paused**. Finished: Chapter 1, 2 )
++ 实分析：Measure, Integration & Real Analysis by Sheldon Axler ( **Paused**. Completed: Chapter 1, 2 )
 + 代数拓扑：An Introduction to Algebraic Topology by Joseph Rotman ( Reading )
