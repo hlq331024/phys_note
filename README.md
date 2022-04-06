@@ -17,7 +17,7 @@ Up to now I am reading / have read the following:
 + 点集拓扑：Topology Without Tears by Sidney Morris ( **Paused**. What's left: Chapter 10 after remark 10.3.34 & Chapter 12 )
 + 抽象代数：Algebra by Michael Artin ( **Paused**. Completed: Chapter 2 & Chapter 3 sections 3.2, 3.7 & Chapters 6, 7, 11 & Chapter 12 before corollary 12.2.9 & Chapter 14 ) ( I STRONGLY recommend this amazing book!! )
 + 复分析：Complex Analysis by Eberhard Freitag & Rolf Busam ( **Paused**. Completed: Chapters 1, 2, 3 )
-+ 微分流形：An Intoduction to Manifolds by Loring Tu ( Reading. Completed: Chapters 1, 2, 3, 4 ) ( Although this book may look a little bit too easy, it is logically coherent with a clear style of writing, therefore still serves as a nice first introduction to the subject. )
++ 微分流形：An Intoduction to Manifolds by Loring Tu ( Reading. Completed: Chapters 1, 2, 3, 4 )
 + 实分析：Measure, Integration & Real Analysis by Sheldon Axler ( Reading. Completed: Chapters 1, 2 )
 + 代数拓扑：An Introduction to Algebraic Topology by Joseph Rotman ( Reading )
 + 微分几何：Differential Geometry by Loring Tu ( Reading )
