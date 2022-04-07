@@ -24,3 +24,7 @@ Up to now I am reading / have read the following:
 + 李群和李代数：Lie Groups Beyond an Introduction by Anthony Knapp ( Reading )
 
 It feels good to be able to slow down.
+
+
+
+# Physics reading
