@@ -28,3 +28,5 @@ It feels good to be able to slow down.
 
 
 # Physics reading
+
++ Principles of Condensed Matter Physics by Paul Chaikin & Tom Lubensky ( Reading )
